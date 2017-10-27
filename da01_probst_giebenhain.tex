@@ -1,0 +1,55 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage[en]{ukon-infie}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\usepackage{amsmath}
+\usepackage{graphicx}
+
+\BottomPointtable 
+\Names{Simon Giebenhain, } 		
+\Lecture[EA]{Design and Analysis of Algorithms} 
+\Term{WS 2017/18} 	   	
+\Department{testdepartment} 
+\Group{A}	
+
+
+\begin{document}
+
+    \begin{ukon-infie}[30/October/2017]{1}
+    
+\begin{exercise}[p=8]{Growth of Functions}	
+
+ Uitilzing the formula from the lecture, one computes the following: \\
+ 
+ With: $n = 8$, $\overline{x} = \frac{\sum_{i = 1}^8 i}{8} = 4.5$ and $\overline{y} = \frac{\sum_{i = 1}^8 y_i}{8} = 12.875$. This yields: \\
+ $$ b = \frac{\sum_{i = 1}^n(y_i - \overline{y})(x_i - \overline{x})}{\sum_{i = 1}^n(x_i - \overline{x})^2} = 1.1071428$$, and
+ $$ a = \overline{y} - b \overline{x} = 7.8928576$$
+ 
+ We computed the values with the following java program: \\
+ \begin{verbatim}
+ float[] x = {1,2,3,4,5,6,7,8};
+        float[] y = {10,11,11,10,13,14,16,18};
+        float meanX = 4.5f;
+        float meanY = 12.875f;
+
+        float above = 0;
+        for (int i = 0; i < x.length; i++) {
+            above += (y[i] - meanY) * (x[i] - meanX);
+        }
+        float below = 0;
+        for (int i = 0; i < x.length; i++) {
+            below += (x[i] - meanX) * (x[i] - meanX);
+        }
+
+        float b = above / below;
+
+        float a = meanY - b * meanX;
+
+        System.out.println("a = " + a + ", b = " + b);
+ \end{verbatim}
+\end{exercise}
+
+
+    \end{ukon-infie}
+\end{document}
