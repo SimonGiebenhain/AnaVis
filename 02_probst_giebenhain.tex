@@ -15,8 +15,10 @@
     \begin{ukon-infie}[08.11.17]{2}
 
         \begin{exercise}[p=9.5]{}
-        	\question{}{Normalization brings data to a scale between 0 and 1, which makes comparing data easier.}
-			\question{}{Normalization only makes sense for "Grösse" and "Geschlecht", all the other columns are either ordinal or nominal values. Normalizing makes comparing the data between columns easier, so it is useful in this case.}
+        	\question{}{Normalization brings data to a scale between 0 and 1, which makes comparing data easier, possibly both for humans and algorithms. \\
+        	One example where normalization is very useful is in a scenario, where data is exponentially distributed (the vast majority clusters around the mean, with increasing distance from the mean the occurence of data drops exponentially). Here a logarithmic normalization can bring more insights to the visulaization, since otherwise the vast majority of data points will look almost identically in the visualization (see example of US countiey of the lecture).\\
+        	Another example is the visualization of income in Germany(x-axis: income, y-axis: people earning that amount per year). Here one could normalize in such a way, that all people earning more than 200.000 per year are represented by the same value. In this way the x-axis is shrunk, such that the details of the less wealthy people are not lost.}
+			\question{}{Normalization only makes sense for "Grösse" and "Gewicht", all the other columns are either ordinal or nominal values. Normalizing makes comparing the data between columns easier, so it is useful in this case.}
 			\question{}{$f_{lin}(x)=\frac{x-min}{max-min}$, $min=165$, $max=203$\\
 			$f_{lin}(167)=0,0526$\\
 			$f_{lin}(181)=0,4211$\\
@@ -45,12 +47,28 @@
 		\end{exercise}
 
 
-		\begin{exercise}[p=2]{}
+		\begin{exercise}[p=2]{Data Mining and Visualization}
+		
+		\question{}{
+			The subway map or bus map is an example of visulazation in my everyday life. It conveys the most important information very well, while ignoring details. Thus the visualization is very easy and quick to understand.
+		}
+		
+		\question{}{
+			The Google advertisments are the most prominant examples of data mining in my everyday life. Data is mined from my browser history, in oder to display fitting ads.
+		}
 
 		\end{exercise}
 
-		\begin{exercise}[p=4]{}
-		
+		\begin{exercise}[p=4]{Visualization: Human vs. Computer}
+		\question{}{
+			It makes sense, because it can be very tedious to visualize huge data sets by hand. This can be solved well by automation. \\
+			Moreover digital visualzations can be updated (e.g. improve visualization, incorporate new data) at every time without much effort, whereas non-digital visualizations have to be drawn from scratch.
+		}
+		\question{}{
+		The raw data extracted by the computer is hard to interpret. \\
+		The visulaization makes it much easier to interpret the result.\\
+		Additionaly this can lead to new insights/discovery of pattern and inspire a change in the algorithm applied proviously.
+		}
 		\end{exercise}
 		
 		
