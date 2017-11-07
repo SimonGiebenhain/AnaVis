@@ -23,26 +23,27 @@
 			$f_{lin}(167)=0,0526$\\
 			$f_{lin}(181)=0,4211$\\
 			$f_{lin}(192)=0,7105$\\}
-			\question{}{$f_{lin}(x)=\frac{x-min}{max-min}$, $min=52$, $max=72$\\
-			$f_{lin}(57)=0,25$\\
-			$f_{lin}(63)=0,55$\\
-			$f_{lin}(68)=0,8$\\}
+			\question{}{$f_{ln}(x)=\frac{ln(x)-ln(min)}{ln(max)-ln(min)}$, $min=52$, $max=72$\\
+			$f_{ln}(57) \approx 0,282$\\
+			$f_{ln}(63) \approx 0,59$\\
+			$f_{ln}(68) \approx 0,824$\\}
         \end{exercise}
         
         \begin{exercise}[p=3]{}
         	\textbf{Data cleaning:} Remove noise, deal with inconsitencies and missing values.\\
         	\textbf{Normalization:} Transform data to a standardized scale which is easier to work with.\\
-        	\textbf{Data Reduction:} Reduce the number of data points or dimensions by sampling and removal of redundant columns.
+        	\textbf{Data Reduction:} Reduce the number of data points by sampling and the number dimensions by removal of redundant(corelated) columns.
 		
 		\end{exercise}
 		
 		\begin{exercise}[p=6]{}
-		\question{}{The goal of sampling is to reduce the size of the data set while keeping the information content the same.}	
+		\question{}{The goal of sampling is to reduce the size of the data set while keeping the information content the same. \\
+		Another reason is the following: In a case where one wants the gain information of a small group of the population, one can sample in such a way, that the probability of a high percentage of the group of interest in the sampled data is hight. Thus this group can be investigated more easily.}	
 		\question{}{In probabilistic sampling every data point can randomly end up in the sample, while in non-probabilistic sampling some data points are choosen out of which the sample is drawn, so some data points have a porbability of zero to end up in the sample.}
 		\question{}{\textbf{Systematic Random Sampling:} Advantage: Easy to implement; Disadvantage: Problem with periodicities\\
 		\textbf{Cluster Random Sampling:} Advantage: Cheap method when it is geographically convenient; Disadvantage:  Least representative of the population\\
 		\textbf{Random Sampling:} Should be used when there is only on column so no categories are possible and when there is no danger of missing a characteristic. Examples:\\ 1. List of heights of people.\\ 2. List of employee income without any other information given.\\
-		\textbf{Stratified Random Sampling:}Should be used when there are mltiple columns, one of which puts the data in different categories. Examples:\\ 1. Income of people grouped by level of education\\ 2. Weight of people grouped by gender\\}
+		\textbf{Stratified Random Sampling:}Should be used when there are multiple columns, one of which puts the data in different categories. Examples:\\ 1. Income of people grouped by level of education\\ 2. Weight of people grouped by gender\\}
 
 		\end{exercise}
 
