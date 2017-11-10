@@ -1,0 +1,113 @@
+\documentclass{article}
+\usepackage[de]{ukon-infie}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\usepackage{amsmath}
+\usepackage{graphicx}
+% kann de oder en sein
+% kann bubble break, topexercise sein
+
+\Names{Jonas Probst, Simon Giebenhain}
+\Lecture[AnaVis]{Analyse und Visualisierung von Informationen}
+\Term{WS 2017/18}
+
+\begin{document}
+    \begin{ukon-infie}[15.11.17]{3}
+
+        \begin{exercise}[p=9]{PCA}
+        	\question{}
+        	{
+$A \cdot E_1 = 
+\left(
+	\begin{array}{c}
+		5\\
+		-8\\
+		-32\\
+	\end{array}
+\right)$,
+$A \cdot E_2 = 
+\left(
+	\begin{array}{c}
+		-1\\
+		8\\
+		2\\
+	\end{array}
+\right)$,
+$A \cdot E_3 = 
+\left(
+	\begin{array}{c}
+		0\\
+		1\\
+		0\\
+	\end{array}
+\right)$,
+$A \cdot E_4 = 
+\left(
+	\begin{array}{c}
+		10\\
+		-8\\
+		-20\\
+	\end{array}
+\right)$\\
+It follows that only $E_2$ is a eigenvector of A. The corresponding eigentvalue is 1.
+        	}
+        	\question{}
+        	{
+        		\begin{enumerate}
+        			\item Only cardinal (that is numeric) data types, because several mathematical operations, such as multiplication , division and addition are necessary.
+        			\item One should use a PCA in order to find out which dimensions of the data can be reduced without losing much information. This is especially important if there is a large number of dimensions. Whether one should actually reduces the dimensions depends on the situation. 
+        			\item I assume this questions asks, when it can be harmful to reduce a dimension. For example it can be very harmful to reduce a dimension, when you are interested in a very small subset of the data, because that dimension can be the one which distinguishes the subset of the whole data. Therefore you cannot distinguish the subset of interest from the rest anymore.
+        			\item Assuming that the point inside the ring are uniformly distibuted, the PCA would do nothing.
+        			\item The PCA itself is never reducing dimensions, but only ordering the dimensions in such a way, that the information content of the dimension decreases with ascending order. Oneself has to decide whether to actually reduce a dimensions.
+        			\item It is not robust against outliers. Consider the data uniformly distributed in the unit circle and a small outlier group located at (5,5). Then the PCA will rotate the data space by 45 degrees, whereas the PCA does nothin if the outliers are not present.
+        			\item If the noise is distributed around the mean of all data, PCA is robust(that means the transformation of the data space is the same, but the values of the dimensions differ because of the noise) against noise, because one can assume that noise has no structure and affects all dimensions in the same way. However if the noise is distibuted around some other place and is for example gaussian distributed, there are examples in which noise affects PCA. E.g. consider data on the the unit circle in 2 dimensions. If the noise is gaussian distributed with mean (5,5) and unit variance, then PCA will rotate the data space by 45 degrees.
+        			\item Yes. PCA transforms the data sapce in such a way that the first dimensions better descirbe the data than the latter dimensions. As a rotation does not alter the relation of dimensions to data, the PCA will still return the same outcome.
+        		\end{enumerate}
+        	}
+		
+		\end{exercise}
+		
+		\begin{exercise}[p=1]{}
+		Prediction is the computation of values of interest, based on the relevant data and a specified model. This value should to predict the real value in the best way possible. The difference to classification is, that classifaction only predicts the class not a value. 		
+		
+		\end{exercise}
+		
+		\begin{exercise}[p=2]{}
+
+		\begin{itemize}
+			\item Tracking down criminals. A decision tree is useful, because it delivers a reasoning for the suspicion of a crime. For example a neural network doesn't give reasons. This enables the police/law to act against the suspects.
+			\item An anti virus software could incorporate some sort of desicion tree, that points out suspicious software. Afterwards the user can look at the suspected software, with information leading to the suspicion.
+		\end{itemize}			
+		
+		\end{exercise}
+		
+		
+
+
+		\begin{exercise}[p=2]{Data Mining and Visualization}
+		
+		\question{}{
+			The subway map or bus map is an example of visulazation in my everyday life. It conveys the most important information very well, while ignoring details. Thus the visualization is very easy and quick to understand.
+		}
+		
+		\question{}{
+			The Google advertisments are the most prominant examples of data mining in my everyday life. Data is mined from my browser history, in oder to display fitting ads.
+		}
+
+		\end{exercise}
+
+		\begin{exercise}[p=4]{Visualization: Human vs. Computer}
+		\question{}{
+			It makes sense, because it can be very tedious to visualize huge data sets by hand. This can be solved well by automation. \\
+			Moreover digital visualzations can be updated (e.g. improve visualization, incorporate new data) at every time without much effort, whereas non-digital visualizations have to be drawn from scratch.
+		}
+		\question{}{
+		The raw data extracted by the computer is hard to interpret. \\
+		The visulaization makes it much easier to interpret the result.\\
+		Additionaly this can lead to new insights/discovery of pattern and inspire a change in the algorithm applied proviously.
+		}
+		\end{exercise}
+		
+		
+\end{ukon-infie}
+\end{document}
