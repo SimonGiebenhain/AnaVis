@@ -82,31 +82,64 @@ It follows that only $E_2$ is a eigenvector of A. The corresponding eigentvalue 
 		\end{exercise}
 		
 		
+		
 
 
-		\begin{exercise}[p=2]{Data Mining and Visualization}
+		\begin{exercise}[p=11]{Data Mining and Visualization}
 		
 		\question{}{
-			The subway map or bus map is an example of visulazation in my everyday life. It conveys the most important information very well, while ignoring details. Thus the visualization is very easy and quick to understand.
+			Split Root:\\
+			$Gain_{TZ}(D)=0,246$\\
+			$Gain_{Geo}(D)=0,029$\\
+			$Gain_{SS}(D)=0,151$\\
+			$Gain_{SB}(D)=0,048$\\
+			Choose Timezone\\\\
+			Split AS:\\
+			$Gain_{Geo}(D_{AS})=0,014$\\
+			$Gain_{SB}(D_{AS})=0,673$\\
+			$Gain_{SS}(D_{AS})=0,014$\\
+			Choose Suspicious Body\\\\
+			Split US:\\
+			$Gain_{Geo}(D_{US})=0,396$\\
+			$Gain_{SB}(D_{US})=0,014$\\
+			$Gain_{SS}(D_{US})=0,673$\\
+			Choose Suspicious Subject\\\\
+			\includegraphics[scale=1]{Tree.png}
+			
 		}
 		
-		\question{}{
-			The Google advertisments are the most prominant examples of data mining in my everyday life. Data is mined from my browser history, in oder to display fitting ads.
-		}
+\question{}		
+\begin{verbatim}
+library(RWeka)
+MsgId <- as.factor(c(1:17))
+TimeZone <- as.factor(c('US', 'US', 'EU', 'AS', 'AS','AS', 'EU',
+ 'US', 'US', 'AS','US', 'EU', 'EU', 'AS', 'US', 'AS', 'EU'))
+GeoLocation <- as.factor(c('US','US','US','EU','AS','AS','AS','EU','AS','EU'
+,'EU','EU','US','EU', 'US', 'AS', 'AS'))
+SuspiciousSubject <- as.factor(c('No','No','No','No','Yes','Yes','Yes',
+'No','Yes','Yes','Yes','No','Yes'
+,'No', 'Yes', 'No', 'No'))
+SuspiciousBody <- as.factor(c('Yes', 'No', 'Yes','Yes','Yes','No','No','Yes','Yes','Yes','No',
+'No','Yes','No', 'Yes', 'No', 'Yes'))
+Spam <- as.factor(c('No','No','Yes','Yes','Yes','No','Yes','No',
+'Yes','Yes','Yes','Yes','Yes','No', 'tba', 'tba', 'tba'))
+input <-data.frame(MsgId,TimeZone, GeoLocation, SuspiciousSubject, SuspiciousBody, Spam)
+train <- input[c(1:14),]
+pred <- input[c(15:17),]
+tree <- J48(Spam~., train)
+plot(tree)
+predict(tree, pred)
+\end{verbatim}
+
+\includegraphics[scale=0.5]{RWeka_decision_tree.png}\\
+The structure of both trees is the same, the R-package probably used the same algorithm as we did. The generated tree additionally shows the amount of Yes/No.
+\question{}{For the source code for predictions see question b). Because the trees are the same the predictions are the same as well:\\
+E-mail A = (US, US, Yes, Yes) $\Rightarrow$ Yes \\
+E-mail B = (AS, AS, No, No) $\Rightarrow$ No \\
+E-mail C = (EU, AS, No, Yes) $\Rightarrow$ Yes}
 
 		\end{exercise}
 
-		\begin{exercise}[p=4]{Visualization: Human vs. Computer}
-		\question{}{
-			It makes sense, because it can be very tedious to visualize huge data sets by hand. This can be solved well by automation. \\
-			Moreover digital visualzations can be updated (e.g. improve visualization, incorporate new data) at every time without much effort, whereas non-digital visualizations have to be drawn from scratch.
-		}
-		\question{}{
-		The raw data extracted by the computer is hard to interpret. \\
-		The visulaization makes it much easier to interpret the result.\\
-		Additionaly this can lead to new insights/discovery of pattern and inspire a change in the algorithm applied proviously.
-		}
-		\end{exercise}
 		
 		
 \end{ukon-infie}
