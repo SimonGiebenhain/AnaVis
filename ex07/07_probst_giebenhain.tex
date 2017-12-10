@@ -1,5 +1,5 @@
 \documentclass{article}
-\usepackage[en]{ukon-infie}
+\usepackage[]{ukon-infie}
 \usepackage[utf8]{inputenc}
 \usepackage{algorithm2e}
 \usepackage{amsmath}
@@ -34,6 +34,16 @@
 			EM treats all points in the same way. Noise and outliers dont play a special role.\\
 			However outliers and noise contirbute to the clusters, therfore influencing their mean values and variances. This means that noise/outliers can distort the gaussian distributions. They can shift the mean value from the actual cluster center and strecht the variance longer than of the actual cluster.
 		}
+		\question{}
+		{}
+\begin{verbatim}
+library(EMCluster)
+library(readr)
+em_example <- read_csv("Documents/AnaVis/AnaVis/ex07/em-example.csv")
+x <- em_example
+ret.em <- init.EM(x, nclass = 4, method = "Rnd.EM")
+plotem(ret.em, x, main = "em")
+\end{verbatim}
 		
 		
 		
