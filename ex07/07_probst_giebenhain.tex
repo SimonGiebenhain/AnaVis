@@ -19,7 +19,9 @@
 		\end{exercise}
 		
 		\begin{exercise}[p=2]{DENCLUE}
-
+		$\xi=0$\\
+		Center defined clusters.\\
+		Influence function: Gaussian function, with $\sigma$ so that there are $k$ clusters.\\
 		\end{exercise}
 		
 		\begin{exercise}[p=7]{EM}
@@ -36,7 +38,7 @@
 		}
 		\question{}
 		{}
-We used four clusters, three to get the obvious clusters in the lower part, and one to catch the outliers. For everything else the standard parameters worked well.
+After plotting the data we know that there are 4 clusters so we set that parameter to 4. The initalization method is Rnd.EM to make a random initalization.
 \begin{verbatim}
 library(EMCluster)
 library(readr)
@@ -45,11 +47,8 @@ ret.em <- init.EM(em_example, nclass = 4, method = "Rnd.EM")
 plotem(ret.em, em_example, main = "em")
 \end{verbatim}
 \includegraphics[scale=0.5]{EMplot.png}
-		
-		
-		
-	
-		\end{exercise}
+\end{exercise}
+
 		
 		\begin{exercise}[p=3]{Noise}
 		
