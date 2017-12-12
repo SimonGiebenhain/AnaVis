@@ -14,7 +14,19 @@
 \begin{document}
     \begin{ukon-infie}[12.12.17]{7}
 
-        \begin{exercise}[p=7]{Single/Average Linkage}      
+        \begin{exercise}[p=7]{Single/Average Linkage}  
+        \question{}
+        {
+        	The distance matrix:\\
+        	\includegraphics[scale=0.5]{distance_matrix.png}\\
+        	
+        	We came up with the followingdendrogram. \\
+        	\includegraphics[scale=0.6]{cluster_tree.png}
+        }
+    	\question{}
+    	{
+    		\includegraphics[scale=0.6]{avg_cluster_tree_continued.png}	
+    	}
 
 		\end{exercise}
 		
@@ -80,6 +92,56 @@ plotem(ret.em, em_example, main = "em")
 		\end{exercise}
 		
 		\begin{exercise}[p=7]{Unknown Data}
+			First and foremost one has to normalize the dataset before even considering to cluster the data. This is important because some columns cointain values in different scales. The \textbf{scale()} function is a handy function, which normalizes the data in such a way, that the mean is zero and has a standar deviation of 1.\\
+			Afterwards we removed points, which seemed to be noise with the method of wishart.\\
+			Then we applied a hierachical clustering, using ward's method as a measure for the hierarchical clustering. We recieved the following tree strucutre.\\
+			\includegraphics[scale=0.4]{hclust_tree.png}\\
+			From the level of 3 clusters, there is a huge distance gap to less clusters. This is an indicator, that this is a nice point to cut the tree.\\
+			In order to evaluate our results, we performed a PCA to reduce the dimensions of the data. Thus we were able to reduce the data to 3 dimension, which explain most of the data. In the transformed space, we visalized our clusters.\\
+			Without removing the noise, this yielded the following:\\
+			\includegraphics[scale=0.6]{pca_cluster_with_noise.png}\\
+			With removing some noise befor the clustering we got the following results:\\
+			\includegraphics[scale=0.6]{pca_cluster_without_noise.png}
+			
+			\begin{verbatim}
+			library(readr)
+			dataset <- read_csv("Downloads/dataset.csv", col_names = FALSE)
+			data <- dataset[, 2:14]
+			data_norm <- scale(data)
+			minPoints <- 3
+			epsilon <- 3
+			noise <- c()
+			for (i in 1:nrow(data_norm)) {
+			    counter <- 0
+			    for (j in 1:nrow(data_norm)) {
+			        if (dist(rbind(data_norm[i, ], data_norm[j, ])) < epsilon) {
+			            counter <- counter + 1
+			        }
+			    }
+			    if (counter < minPoints) {
+			        noise[length(noise) + 1] <- i
+			    }
+			}
+			data_norm <- data_norm[-noise, ]
+			c_ward <- hclust(dist(data_norm), method = "ward.D2")
+			ward_cut <- cutree(c_ward, 3)
+			pca <- prcomp(data[], center=TRUE, scale.=TRUE)
+			dim_red <- predict(pca, newdata = data[])
+			col <- c()
+			j <- 1
+			for (i in 1:178) {
+			    if (i %in% noise) {
+			        col[i] <- 0
+			    } else {
+			       col[i] <- ward_cut[j]
+			        j <- j + 1
+			    }
+			}
+			library('plotly')
+			plot_ly(data.frame(dim_red), x = dim_red[, 1], y = dim_red[, 2], z=dim_red[, 3], color = col)
+			
+			
+			\end{verbatim}
 		\end{exercise}
 		
 		
