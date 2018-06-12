@@ -1,0 +1,155 @@
+\documentclass{article}
+\usepackage[en]{ukon-infie}
+\usepackage[utf8]{inputenc}
+\usepackage{algorithm2e}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+% kann de oder en sein
+% kann bubble break, topexercise sein
+
+\Names{Jonas Probst, Simon Giebenhain}
+\Lecture[AnaVis]{Analyse und Visualisierung von Informationen}
+\Term{WS 2017/18}
+
+\begin{document}
+    \begin{ukon-infie}[29.11.17]{5}
+
+        \begin{exercise}[p=10]{Bayes Theorem, Naive Bayes Classifier}
+       
+       \question{}
+       {
+       Decision Trees tend to overfit.(Therefore pruning has to be applied, which can be difficult. Important outliers can be lost.) This does not happen with Naive Bayes.
+       }
+       
+       \question{}
+       {
+       The Naive Bayes Classifier assums class conditional independence ($P(X, C_i) = \Pi_{i = j}^m P(x_j,C_i) $). However this does generally not hold. Therefore the accuracy of the Naive Bayes Classifier is worse than the accuracy of the Bayes Theorem (which has the best performance from a theoretical point of view). The reason for making this false assumption is, that it is much to complex to compute all conditional probabilities for high dimensional data. Additionally one cannot simply derive $P(X, C_i)$, becuase one would need way to much data to still be accurate.
+       }
+       
+       \question{}
+       {
+       Training:\\
+       P(spam = yes) = $\frac{9}{14}$ and P(spam = no) = $\frac{5}{14}$.\\
+       The folloeing tables describe the conditional probabilities (conditions in columns).\\
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|l|}{\multirow{2}{*}{}} & \multicolumn{3}{l|}{TimeZone} \\ \cline{3-5} 
+\multicolumn{2}{|l|}{}                  & US       & AS       & EU      \\ \hline
+\multirow{2}{*}{spam}       & yes       & 2/9      & 3/9      & 4/9     \\ \cline{2-5} 
+                            & no        & 3/5      & 2/5      & 0       \\ \hline
+\end{tabular}
+\begin{tabular}{|l|l|l|l|l|}
+\hline
+\multicolumn{2}{|l|}{\multirow{2}{*}{}} & \multicolumn{3}{l|}{GeoLocation} \\ \cline{3-5} 
+\multicolumn{2}{|l|}{}                  & US        & AS        & EU       \\ \hline
+\multirow{2}{*}{spam}       & yes       & 2/9       & 3/9       & 4/9      \\ \cline{2-5} 
+                            & no        & 2/5       & 1/5       & 2/5      \\ \hline
+\end{tabular}
+\\
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{2}{|l|}{\multirow{2}{*}{}} & \multicolumn{2}{l|}{SuspiciousSuspect} \\ \cline{3-4} 
+\multicolumn{2}{|l|}{}                  & yes                & no                \\ \hline
+\multirow{2}{*}{spam}       & yes       & 6/9                & 3/9               \\ \cline{2-4} 
+                            & no        & 1/5                & 4/5               \\ \hline
+\end{tabular}
+\begin{tabular}{|l|l|l|l|}
+\hline
+\multicolumn{2}{|l|}{\multirow{2}{*}{}} & \multicolumn{2}{l|}{SuspiciousBody} \\ \cline{3-4} 
+\multicolumn{2}{|l|}{}                  & yes              & no               \\ \hline
+\multirow{2}{*}{spam}       & yes       & 6/9              & 3/9              \\ \cline{2-4} 
+                            & no        & 2/5              & 3/5              \\ \hline
+\end{tabular}
+Prediction:\\
+With these probabilities one gets the following results:\\
+X = (US, US, yes, yes) $\Rightarrow$ P(X | spam=yes)P(spam=yes) $= \frac{2 \cdot 2 \cdot 6 \cdot 6 \cdot 9}{9^4 \cdot 14} = \frac{8}{567}$ and\\
+P(X | spam=no)P(spam=no) $ = \frac{3 \cdot 2 \cdot 1 \cdot 2 \cdot 5}{5^4 \cdot 14} = \frac{6}{875}$.\\
+Thus X will be classified as  spam.\\
+
+Y= (AS, AS, No, No) $\Rightarrow$ P(Y | spam=yes)P(spam=yes) $= \frac{3 \cdot 3 \cdot 3 \cdot 3 \cdot 9}{9^4 \cdot 14} = \frac{1}{126}$ and\\
+P(Y | spam=no)P(spam=no) $ = \frac{2 \cdot 1 \cdot 4 \cdot 3 \cdot 5}{5^4 \cdot 14} = \frac{12}{875}$.\\
+Thus Y will be classified as  no spam.\\
+
+Z = (EU, AS, no, yes) $\Rightarrow$ P(Z | spam=yes)P(spam=yes) $= \frac{4 \cdot 3 \cdot 3 \cdot 6 \cdot 9}{9^4 \cdot 14} = \frac{8}{63}$ and\\
+P(Z | spam=no)P(spam=no) $ = \frac{0 \cdot 1 \cdot 4 \cdot 2 \cdot 5}{5^4 \cdot 14} = 0$.\\
+Thus Z will be classified as  spam.\\
+
+
+
+
+       }
+       
+       \question{}
+       {
+       
+       }
+       \begin{verbatim}
+library('e1071')
+MsgId <- as.factor(c(1:17))
+TimeZone <- as.factor(c('US', 'US', 'EU', 'AS', 'AS','AS', 'EU',
+ 'US', 'US', 'AS','US', 'EU', 'EU', 'AS', 'US', 'AS', 'EU'))
+GeoLocation <- as.factor(c('US','US','US','EU','AS','AS','AS','EU','AS','EU'
+,'EU','EU','US','EU', 'US', 'AS', 'AS'))
+SuspiciousSubject <- as.factor(c('No','No','No','No','Yes','Yes','Yes',
+'No','Yes','Yes','Yes','No','Yes'
+,'No', 'Yes', 'No', 'No'))
+SuspiciousBody <- as.factor(c('Yes', 'No', 'Yes','Yes','Yes','No','No','Yes','Yes','Yes','No',
+'No','Yes','No', 'Yes', 'No', 'Yes'))
+Spam <- as.factor(c('No','No','Yes','Yes','Yes','No','Yes','No',
+'Yes','Yes','Yes','Yes','Yes','No', 'tba', 'tba', 'tba'))
+input <-data.frame(MsgId,TimeZone, GeoLocation, SuspiciousSubject, SuspiciousBody, Spam)
+train <- input[c(1:14),]
+pred <- input[c(15:17),]
+bayes <- naiveBayes(Spam~., data=train)
+predict(bayes, pred)
+       \end{verbatim}
+       \question{}
+       {
+       There is no tupel which has TimeZone EU and is no spam. Therfore the resulting conditional probabily is zero and neglects everything else.\\
+       To solve this problem, one could introduce a minimum probability $\hat{p}$ such that instead of zero one resumes with a probability of $\hat{p}$. Alternatively one could introduce one tupel for every possible value for every attribute for every class, such that all conditional probablity are non zero.
+       }
+		\end{exercise}
+		
+		\begin{exercise}[p=10]{}
+		a) und b)\\\\
+		\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+		\hline 
+		 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & Prediction k=1 & Prediction k=3 & Actual Class \\ 
+		\hline 
+		11 & $\sqrt[]{3}$ & $ \color{red} \sqrt[]{2}$ & $\sqrt[]{4}$ & $\sqrt[]{6}$ & $\sqrt[]{6}$ & $\sqrt[]{5}$ & $ \color{red} \sqrt[]{2}$ & $ \color{red} \sqrt[]{2}$ & $\sqrt[]{2}$ & $\sqrt[]{5}$ & N & N & P \\ 
+		\hline 
+		12 & $\sqrt[]{3}$ & $ \color{red} \sqrt[]{2}$ & $ \color{red} \sqrt[]{2}$ & $ \color{red} \sqrt[]{2}$ & $\sqrt[]{4}$ & $\sqrt[]{3}$ & $\sqrt[]{2}$ & $\sqrt[]{2}$ & $\sqrt[]{4}$ & $\sqrt[]{3}$ & N & P & P \\ 
+		\hline 
+		13 & $ \color{red} \sqrt[]{2}$ & $\sqrt[]{3}$ & $ \color{red} \sqrt[]{1}$ & $\sqrt[]{3}$ & $\sqrt[]{5}$ & $\sqrt[]{6}$ & $\sqrt[]{5}$ & $\sqrt[]{3}$ & $\sqrt[]{5}$ & $ \color{red} \sqrt[]{2}$ & P & P & P \\ 
+		\hline 
+		14 & $\sqrt[]{6}$ & $\sqrt[]{5}$ & $ \color{red} \sqrt[]{3}$ & $ \color{red} \sqrt[]{1}$ & $\sqrt[]{3}$ & $\sqrt[]{3}$ & $\sqrt[]{3}$ & $\sqrt[]{5}$ & $\sqrt[]{7}$ & $ \color{red} \sqrt[]{2}$ & P & P & N \\ 
+		\hline 
+		\end{tabular}\\\\
+		c) \\
+		k=1: $F_{TE}(K_1) = 3/4 =0.75$\\
+		k=3: $F_{TE}(K_3) = 2/4 =0.5$\\
+		
+		\end{exercise}
+		
+		\begin{exercise}[p=4]{}
+			
+		\end{exercise}
+		
+		
+
+
+		\begin{exercise}[p=3]{}
+		{
+			\textbf{partitioning methods:} The algorithms (e.g. k-means, k-medioids) try to partition the data points by allocating each point the nearest 'cluster' (like in a Voronoi-Diagram).\\
+			\textbf{density-based methods:} We only discusses EM(expectation maximization), yet. This method constructs probability distribution based on the density of points in the current clusters. EM constructs normal distributions based on the mean and stddev of the points currenlty allocated to this cluster. The gaussian distribution also represents the density of the clusters.\\
+			\textbf{hierachical:} not discussed in the lecture yet.
+		}
+		
+
+		\end{exercise}
+		
+		
+\end{ukon-infie}
+\end{document}
